@@ -1,5 +1,7 @@
 # Desk Exercise Timer Documentation
 
+https://stho32.github.io/DeskExerciseTimer/
+
 ## Overview
 
 Desk Exercise Timer is a web application designed to encourage regular physical activity during your workday, especially beneficial for those with sedentary jobs. It randomly sets timers to remind you to perform simple exercises promoting overall health.
