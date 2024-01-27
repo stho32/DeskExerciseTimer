@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desk Exercise Timer</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container text-center mt-5">
+        <h1>Desk Exercise Timer</h1>
+        <div id="exercise"></div>
+        <div id="timer" class="my-3"></div>
+        <button id="testSoundButton" class="btn btn-primary">Test Sound</button> <!-- Test Sound Button -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        const exercises = [
+            'Foot Circles and Pointing: Rotate your feet, then point and flex your toes.',
+            'Seated Leg Raises: Lift one leg at a time while seated, holding for a few seconds.',
+            'Toe Raises: Stand up and raise onto your toes, then lower back down.',
+            'Walking Breaks: Take short walks around your office or room.',
+            'Leg Stretches: Stand up and gently stretch your legs and body.',
+            'Calf Raises: Raise your heels off the ground while standing, then lower.'
+        ];
+
+        let countdown;
+        const countdownElement = document.getElementById('timer');
+        const exerciseElement = document.getElementById('exercise');
+        const intervalTime = 1 * 60 * 1000; // 30 minutes
+
+        function getRandomExercise() {
+            return exercises[Math.floor(Math.random() * exercises.length)];
+        }
+
+        function startExerciseTimer() {
+            clearInterval(countdown);
+            let timeLeft = intervalTime;
+
+            countdown = setInterval(() => {
+                let minutes = Math.floor(timeLeft / 60000);
+                let seconds = ((timeLeft % 60000) / 1000).toFixed(0);
+                countdownElement.textContent = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    updateExercise();
+                    startExerciseTimer(); // restart timer
+                }
+
+                timeLeft -= 1000;
+            }, 1000);
+        }
+
+        function updateExercise() {
+            exerciseElement.textContent = getRandomExercise();
+            playSound();
+        }
+
+        function playSound() {
+            // You will need to provide your own sound file or URL
+            const audio = new Audio('chinese-gong-daniel_simon.mp3');
+            audio.play();
+        }
+
+        // Initialize the first exercise and start the timer
+        updateExercise();
+        startExerciseTimer();
+
+        document.getElementById('testSoundButton').addEventListener('click', function () {
+            playSound();
+        });
+    </script>
+
+
+</body>
+
+</html>
